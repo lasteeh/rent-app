@@ -14,20 +14,53 @@ The inspiration for this project comes from the difficulties faced by students a
 
 ## Installation
 
-- ```git clone https://
+1. Clone the repository:
 
-  ```
+```
+  git clone https://github.com/lasteeh/rent-app.git
+```
 
-- Configuration
+2. Install dependencies:
 
-- Database creation
+```
+bundle install
+```
 
-- Database initialization
+3. Configure your database in config/database.yml file.
 
-- How to run the test suite
+4. Create the database:
 
-- Services (job queues, cache servers, search engines, etc.)
+```
+rails db:create
 
-- Deployment instructions
+```
 
-- ...
+5. Initialize the database:
+
+```
+rails db:migrate
+
+```
+
+## Running the Application
+
+1. Start the Rails server
+
+```
+rails server
+```
+
+2. Open your browser and navigate to (http://localhost:3000)
+
+## Running Tests
+
+To run the test suite, execute the following command:
+
+```
+bundle exec rspec
+```
+
+## Built With
+
+Ruby on Rails
+PostgreSQL (production)
