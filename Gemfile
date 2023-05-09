@@ -50,5 +50,9 @@ group :development do
   # gem "spring"
 end
 
+group :test do 
+  gem 'faker'
+end
+
 #  code coverage analysis tool [https://github.com/simplecov-ruby/simplecov]
 gem 'simplecov', require: false, group: :test
