@@ -1,7 +1,17 @@
 class Landlord < ApplicationRecord
   # validations
-  validates :first_name, presence: true
-  validates :last_name, presence: true
+  validates :first_name,
+            presence: true,
+            length: {
+              minimum: 1,
+            },
+            name_format: true
+  validates :last_name,
+            presence: true,
+            length: {
+              minimum: 1,
+            },
+            name_format: true
   validates :email,
             email_format: true,
             presence: true,
@@ -20,11 +30,18 @@ class Landlord < ApplicationRecord
   private
 
   def normalize_first_and_last_name
-    self.first_name = first_name.strip.capitalize
-    self.last_name = last_name.strip.capitalize
+    self.first_name = normalize_name(self.first_name)
+    self.last_name = normalize_name(self.last_name)
   end
 
   def normalize_email_address
     self.email = email.downcase.strip
+  end
+
+  def normalize_name(name)
+    name
+      .split(/(\s|-)/)
+      .map { |part| part.match?(/\s|-/) ? part : part.capitalize }
+      .join
   end
 end

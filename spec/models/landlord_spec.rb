@@ -8,7 +8,11 @@ RSpec.describe Landlord, type: :model do
     subject { FactoryBot.create(:landlord) }
 
     it { should validate_presence_of(:first_name) }
+    it { should allow_value('hak dog').for(:first_name) }
+    it { should_not allow_value('hak !!! dog').for(:first_name) }
+    it { should_not allow_value(' - ').for(:first_name) }
     it { should validate_presence_of(:last_name) }
+    it { should allow_value('sam-smith').for(:last_name) }
     it { should validate_presence_of(:email) }
     it { should validate_uniqueness_of(:email).case_insensitive }
     it { should_not allow_value('hakdog.email.com').for(:email) }
@@ -19,15 +23,15 @@ RSpec.describe Landlord, type: :model do
   # callbacks
   describe 'callbacks' do
     it 'normalizes the first name before saving' do
-      landlord.first_name = 'HAk'
+      landlord.first_name = 'HAk digity'
       landlord.save
-      expect(landlord.reload.first_name).to eq('Hak')
+      expect(landlord.reload.first_name).to eq('Hak Digity')
     end
 
     it 'normalizes the last name before saving' do
-      landlord.last_name = 'dOG'
+      landlord.last_name = 'dOG-gone'
       landlord.save
-      expect(landlord.reload.last_name).to eq('Dog')
+      expect(landlord.reload.last_name).to eq('Dog-Gone')
     end
 
     it 'normalizes the email address before saving' do
