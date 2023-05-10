@@ -3,12 +3,10 @@ class Landlord < ApplicationRecord
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :email,
+            email_format: true,
             presence: true,
             uniqueness: {
               case_sensitive: false,
-            },
-            format: {
-              with: URI::Mailto::EMAIL_REGEXP,
             }
   validates :phone_number, presence: true, uniqueness: { case_sensitive: false }
 
