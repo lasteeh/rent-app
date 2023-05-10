@@ -11,6 +11,7 @@ class Landlord < ApplicationRecord
   validates :phone_number, presence: true, uniqueness: { case_sensitive: false }
 
   # callbacks
+  before_save :normalize_first_and_last_name
   before_save :normalize_email_address
 
   # custom methods
@@ -18,7 +19,12 @@ class Landlord < ApplicationRecord
   # private methods
   private
 
+  def normalize_first_and_last_name
+    self.first_name = first_name.strip.capitalize
+    self.last_name = last_name.strip.capitalize
+  end
+
   def normalize_email_address
-    self.email = email.downcase
+    self.email = email.downcase.strip
   end
 end

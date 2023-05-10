@@ -18,6 +18,18 @@ RSpec.describe Landlord, type: :model do
 
   # callbacks
   describe 'callbacks' do
+    it 'normalizes the first name before saving' do
+      landlord.first_name = 'HAk'
+      landlord.save
+      expect(landlord.reload.first_name).to eq('Hak')
+    end
+
+    it 'normalizes the last name before saving' do
+      landlord.last_name = 'dOG'
+      landlord.save
+      expect(landlord.reload.last_name).to eq('Dog')
+    end
+
     it 'normalizes the email address before saving' do
       landlord.email = 'HAKDOG@EMail.com'
       landlord.save
