@@ -1,4 +1,4 @@
-module NormalizeAttributes
+module AttributeNormalizer
   extend ActiveSupport::Concern
 
   included do

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_11_044951) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_11_121614) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -21,6 +21,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_11_044951) do
     t.string "phone_number", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "password", null: false
+    t.string "token", null: false
+    t.index ["token"], name: "index_landlords_on_token", unique: true
   end
 
   create_table "renters", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -30,6 +33,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_11_044951) do
     t.string "phone_number", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "password", null: false
+    t.string "token", null: false
+    t.index ["token"], name: "index_renters_on_token", unique: true
   end
 
 end
