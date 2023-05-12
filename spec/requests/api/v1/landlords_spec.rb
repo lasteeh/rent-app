@@ -35,7 +35,10 @@ RSpec.describe Api::V1::LandlordsController, type: :request do
         expect(response).to have_http_status(:created)
         expect(Landlord.count).to eq(2)
         parsed_response = JSON.parse(response.body)
-        expect(parsed_response['email']).to eq(valid_attributes[:email])
+        expect(parsed_response['landlord']['email']).to eq(
+          valid_attributes[:email],
+        )
+        expect(parsed_response['landlord']['email']).to_not be_empty
       end
     end
 
@@ -54,13 +57,7 @@ RSpec.describe Api::V1::LandlordsController, type: :request do
              }
         expect(response).to have_http_status(:unprocessable_entity)
         parsed_response = JSON.parse(response.body)
-        # expect(parsed_response.keys).to include(
-        #   'first_name',
-        #   'last_name',
-        #   'email',
-        #   'phone_number',
-        #   'password',
-        # )
+        expect(parsed_response['error']).to_not be_empty
       end
     end
   end

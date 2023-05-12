@@ -6,9 +6,16 @@ class Api::V1::LandlordsController < ApplicationController
     @landlord, @error_messages = Landlord.signup(signup_params)
 
     if @error_messages.nil?
-      render json: @landlord, status: :created
+      render json: {
+               landlord: {
+                 id: @landlord.id,
+                 email: @landlord.email,
+                 authentication_token: @landlord.token,
+               },
+             },
+             status: :created
     else
-      render json: @error_messages, status: :unprocessable_entity
+      render json: { error: @error_messages }, status: :unprocessable_entity
     end
   end
   def show; end
