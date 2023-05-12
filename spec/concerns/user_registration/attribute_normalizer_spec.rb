@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe AttributeNormalizer, type: :concern do
+RSpec.describe UserRegistration::AttributeNormalizer, type: :concern do
   let(:test_model) do
     Class.new(ApplicationRecord) do
       self.table_name = 'landlords'
-      include AttributeNormalizer
+      include UserRegistration::AttributeNormalizer
     end
   end
 
