@@ -9,11 +9,17 @@ Rails
 
     namespace :api do
       namespace :v1 do
-        resources :landlords, only: %i[index show update destroy] do
-          collection { post 'signup', to: 'landlords#create' }
-        end
-        resources :renters, only: %i[index show update destroy] do
-          collection { post 'signup', to: 'renters#create' }
+        resources :landlords, only: %i[index show update destroy]
+        resources :renters, only: %i[index show update destroy]
+
+        # registration end points
+        post 'landlords/signup', to: 'landlords#create'
+        post 'renters/signup', to: 'renters#create'
+
+        # authentication end points
+        scope '/auth' do
+          post '/landlord', to: 'authentication#landlord_create'
+          post '/renter', to: 'authentication#renter_create'
         end
       end
     end

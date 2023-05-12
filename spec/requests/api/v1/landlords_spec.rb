@@ -38,7 +38,6 @@ RSpec.describe Api::V1::LandlordsController, type: :request do
         expect(parsed_response['landlord']['email']).to eq(
           valid_attributes[:email],
         )
-        expect(parsed_response['landlord']['email']).to_not be_empty
       end
     end
 

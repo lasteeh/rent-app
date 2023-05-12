@@ -1,3 +1,4 @@
 class Landlord < ApplicationRecord
-  include UserRegistration # registers user
+  include UserRegistration # registration for user
+  include UserAuthentication # authentication for user
 end
