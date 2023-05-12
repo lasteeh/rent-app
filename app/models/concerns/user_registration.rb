@@ -4,8 +4,8 @@ module UserRegistration
   included do
     include BCrypt
 
-    include UserRegistration::UserValidations # validates relative user fields
     include UserRegistration::AttributeNormalizer # normalize first name, last name, and email address
+    include UserRegistration::UserValidations # validates relative user fields
     include UserRegistration::TokenGenerator # generates token
 
     # callbacks
