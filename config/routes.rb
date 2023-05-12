@@ -12,6 +12,9 @@ Rails
         resources :landlords, only: %i[index show update destroy] do
           collection { post 'signup', to: 'landlords#create' }
         end
+        resources :renters, only: %i[index show update destroy] do
+          collection { post 'signup', to: 'renters#create' }
+        end
       end
     end
   end
