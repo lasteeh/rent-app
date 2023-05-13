@@ -21,6 +21,8 @@ Rails
           post '/landlord', to: 'authentication#landlord_create'
           post '/renter', to: 'authentication#renter_create'
         end
+
+        resources :properties
       end
     end
   end
