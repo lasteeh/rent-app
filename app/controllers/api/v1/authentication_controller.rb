@@ -17,8 +17,6 @@ class Api::V1::AuthenticationController < ApplicationController
     end
   end
 
-  def destroy; end
-
   private
 
   def signin_params
