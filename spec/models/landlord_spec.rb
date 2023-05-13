@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Landlord, type: :model do
   let(:landlord) { FactoryBot.create(:landlord) }
+  let(:property) { FactoryBot.create(:property) }
 
   # validations
   describe 'validations' do
@@ -33,6 +34,11 @@ RSpec.describe Landlord, type: :model do
       landlord.password_confirmation = 'a1b2c3DDDD!!'
       expect(landlord).to_not be_valid
     end
+  end
+
+  # associations
+  describe 'associations' do
+    it { should have_many(:property) }
   end
 
   # custom methods
