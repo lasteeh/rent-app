@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :renter do
-    # Add appropriate attributes for the landlord model
+    # Add appropriate attributes for the renter model
     first_name { Faker::Name.first_name }
     last_name { Faker::Name.last_name.gsub(/[^a-zA-Z\s-]/, '') }
     email { Faker::Internet.email }
