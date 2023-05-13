@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_11_121614) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_13_024334) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -26,6 +26,21 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_11_121614) do
     t.index ["token"], name: "index_landlords_on_token", unique: true
   end
 
+  create_table "properties", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.string "image_url"
+    t.string "address", null: false
+    t.string "city", null: false
+    t.string "province", null: false
+    t.string "zip_code", null: false
+    t.integer "units"
+    t.uuid "landlord_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["landlord_id"], name: "index_properties_on_landlord_id"
+  end
+
   create_table "renters", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "first_name", null: false
     t.string "last_name", null: false
@@ -38,4 +53,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_11_121614) do
     t.index ["token"], name: "index_renters_on_token", unique: true
   end
 
+  add_foreign_key "properties", "landlords"
 end
