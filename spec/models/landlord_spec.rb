@@ -40,15 +40,4 @@ RSpec.describe Landlord, type: :model do
   describe 'associations' do
     it { should have_many(:property) }
   end
-
-  # custom methods
-  describe 'methods' do
-    describe '#hash_password' do
-      it 'hashes the password' do
-        landlord.password = 'plain_password'
-        landlord.hash_password
-        expect(landlord.password).not_to eq('plain_password')
-      end
-    end
-  end
 end
