@@ -6,7 +6,6 @@ module UserRegistration
 
     include UserRegistration::AttributeNormalizer # normalize first name, last name, and email address
     include UserRegistration::UserValidations # validates relative user fields
-    include UserRegistration::TokenGenerator # generates token
 
     # callbacks
     before_save :hash_password

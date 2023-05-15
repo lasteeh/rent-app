@@ -13,5 +13,9 @@ module UserAuthentication
         return user, error_messages
       end
     end
+
+    def generate_token
+      self.token = Digest::SHA1.hexdigest([Time.now, rand(111..999)].join)
+    end
   end
 end
