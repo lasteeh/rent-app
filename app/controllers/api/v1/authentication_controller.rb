@@ -7,11 +7,11 @@ class Api::V1::AuthenticationController < ApplicationController
 
     if @error_messages.nil?
       render json: {
-               authentication_token: @landlord.generate_token,
                landlord: {
                  id: @landlord.id,
                  email: @landlord.email,
                },
+               token: @landlord.generate_token,
              },
              status: :ok
     else

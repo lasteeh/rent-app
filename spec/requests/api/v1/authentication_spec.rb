@@ -18,8 +18,8 @@ RSpec.describe Api::V1::AuthenticationController, type: :request do
         parsed_response = JSON.parse(response.body)
         expect(parsed_response)
         expect(parsed_response['landlord']['email']).to eq(landlord.email)
-        expect(parsed_response['authentication_token']).to_not be_empty
-        expect(parsed_response['authentication_token']).to_not be_nil
+        expect(parsed_response['token']).to_not be_empty
+        expect(parsed_response['token']).to_not be_nil
       end
     end
 
