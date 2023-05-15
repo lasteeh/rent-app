@@ -19,4 +19,10 @@ RSpec.describe Renter, type: :model do
     it { should validate_presence_of(:phone_number) }
     it { should validate_uniqueness_of(:phone_number).case_insensitive }
   end
+
+  it 'should validate matching password and password confirmation' do
+    renter.password = 'a1b2c3DDDD!'
+    renter.password_confirmation = 'a1b2c3DDDD!!'
+    expect(renter).to_not be_valid
+  end
 end
