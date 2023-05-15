@@ -3,5 +3,5 @@ class Landlord < ApplicationRecord
   include UserAuthentication # authentication for user
 
   # associations
-  has_many :property, dependent: :destroy
+  has_many :properties, dependent: :destroy
 end

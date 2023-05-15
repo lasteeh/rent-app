@@ -38,6 +38,6 @@ RSpec.describe Landlord, type: :model do
 
   # associations
   describe 'associations' do
-    it { should have_many(:property) }
+    it { should have_many(:properties) }
   end
 end

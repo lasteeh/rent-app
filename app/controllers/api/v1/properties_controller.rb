@@ -1,5 +1,13 @@
 class Api::V1::PropertiesController < ApplicationController
-  def index; end
+  def index
+    if @current_landlord
+      properties = @current_landlord.properties
+    elsif @current_renter
+      properties = Property.all
+    end
+
+    render json: properties, status: :ok
+  end
 
   def create
     # signup
