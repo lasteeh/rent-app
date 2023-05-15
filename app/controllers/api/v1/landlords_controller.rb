@@ -1,4 +1,6 @@
 class Api::V1::LandlordsController < ApplicationController
+  skip_before_action :authenticate_request, only: :create
+
   def index; end
 
   def create

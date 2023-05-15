@@ -7,5 +7,6 @@ FactoryBot.define do
     phone_number { Faker::PhoneNumber.cell_phone_in_e164 }
     password { 'a1b2c3DDDD!' }
     password_confirmation { password }
+    token { Digest::SHA1.hexdigest([Time.now, rand(111..999)].join) }
   end
 end

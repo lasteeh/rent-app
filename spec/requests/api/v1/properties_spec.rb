@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::PropertiesController, type: :request do
+  let(:landlord) { FactoryBot.create(:landlord) }
   let(:property) { FactoryBot.create(:property) }
 
   describe 'POST /api/v1/properties' do
@@ -25,7 +26,13 @@ RSpec.describe Api::V1::PropertiesController, type: :request do
 
     context 'when the request is valid' do
       before do
-        post '/api/v1/properties', params: { property: valid_attributes }
+        post '/api/v1/properties',
+             params: {
+               property: valid_attributes,
+             },
+             headers: {
+               Authorization: "Bearer #{landlord.token}",
+             }
       end
 
       it 'creates a new property with valid attributes' do

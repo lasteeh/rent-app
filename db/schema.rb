@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_13_024334) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_15_050301) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -22,7 +22,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_13_024334) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "password", null: false
-    t.string "token", null: false
+    t.string "token"
     t.index ["token"], name: "index_landlords_on_token", unique: true
   end
 
@@ -49,7 +49,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_13_024334) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "password", null: false
-    t.string "token", null: false
+    t.string "token"
     t.index ["token"], name: "index_renters_on_token", unique: true
   end
 
