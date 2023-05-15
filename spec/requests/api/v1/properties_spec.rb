@@ -41,6 +41,23 @@ RSpec.describe Api::V1::PropertiesController, type: :request do
         expect(Property.count).to eq(2)
       end
     end
+
+    context 'when the request is invalid' do
+      before do
+        post '/api/v1/properties',
+             params: {
+               property: invalid_attributes,
+             },
+             headers: {
+               Authorization: "Bearer #{landlord.token}",
+             }
+      end
+
+      it 'creates a new property with valid attributes' do
+        expect(response).to have_http_status(:unprocessable_entity)
+        expect(Property.count).to eq(1)
+      end
+    end
   end
 
   describe 'GET /api/v1/properties/' do

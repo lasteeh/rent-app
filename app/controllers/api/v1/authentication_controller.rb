@@ -15,7 +15,7 @@ class Api::V1::AuthenticationController < ApplicationController
              },
              status: :ok
     else
-      render json: { error: @error_messages }, status: :unauthorized
+      render json: { errors: @error_messages }, status: :unauthorized
     end
   end
 

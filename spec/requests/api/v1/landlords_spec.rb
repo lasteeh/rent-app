@@ -56,7 +56,7 @@ RSpec.describe Api::V1::LandlordsController, type: :request do
              }
         expect(response).to have_http_status(:unprocessable_entity)
         parsed_response = JSON.parse(response.body)
-        expect(parsed_response['error']).to_not be_empty
+        expect(parsed_response['errors']).to_not be_empty
       end
     end
   end

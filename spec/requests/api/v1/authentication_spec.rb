@@ -29,7 +29,7 @@ RSpec.describe Api::V1::AuthenticationController, type: :request do
       it 'returns an error message' do
         expect(response).to have_http_status(:unauthorized)
         parsed_response = JSON.parse(response.body)
-        expect(parsed_response['error']).to eq(['Invalid email or password'])
+        expect(parsed_response['errors']).to eq(['Invalid email or password'])
       end
     end
   end

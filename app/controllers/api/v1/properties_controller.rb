@@ -31,7 +31,7 @@ class Api::V1::PropertiesController < ApplicationController
              },
              status: :created
     else
-      render json: { error: @error_messages }, status: :unprocessable_entity
+      render json: { errors: @error_messages }, status: :unprocessable_entity
     end
   end
   def show; end
