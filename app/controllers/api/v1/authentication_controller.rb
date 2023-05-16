@@ -6,10 +6,8 @@ class Api::V1::AuthenticationController < ApplicationController
     @landlord, @error_messages = Landlord.signin(signin_params)
 
     if @error_messages.nil?
-      render json: {
-               landlord: TokenSerializer.serialize_user(@landlord),
-             },
-             status: :ok
+      serialized_token = TokenSerializer.serialize_user(@landlord)
+      render json: { landlord: serialized_token }, status: :ok
     else
       render json: { errors: @error_messages }, status: :unauthorized
     end

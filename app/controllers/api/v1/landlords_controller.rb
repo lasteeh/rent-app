@@ -8,10 +8,8 @@ class Api::V1::LandlordsController < ApplicationController
     @landlord, @error_messages = Landlord.signup(signup_params)
 
     if @error_messages.nil?
-      render json: {
-               landlord: LandlordSerializer.serialize_user(@landlord),
-             },
-             status: :created
+      serialized_landlord = LandlordSerializer.serialize_user(@landlord)
+      render json: { landlord: serialized_landlord }, status: :created
     else
       render json: { errors: @error_messages }, status: :unprocessable_entity
     end

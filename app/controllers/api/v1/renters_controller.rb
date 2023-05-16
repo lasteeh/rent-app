@@ -8,10 +8,8 @@ class Api::V1::RentersController < ApplicationController
     @renter, @error_messages = Renter.signup(signup_params)
 
     if @error_messages.nil?
-      render json: {
-               renter: RenterSerializer.serialize_user(@renter),
-             },
-             status: :created
+      serialized_renter = RenterSerializer.serialize_user(@renter)
+      render json: { renter: serialized_renter }, status: :created
     else
       render json: { errors: @error_messages }, status: :unprocessable_entity
     end
