@@ -121,4 +121,105 @@ RSpec.describe Api::V1::PropertiesController, type: :request do
       end
     end
   end
+
+  describe 'GET /api/v1/properties/:id' do
+    let!(:property1) { FactoryBot.create(:property, landlord_id: landlord.id) }
+
+    context 'when request is valid' do
+      before do
+        get "/api/v1/properties/#{property1.id}",
+            headers: {
+              Authorization: "Bearer #{landlord.token}",
+            }
+      end
+
+      it 'returns the property details' do
+        expect(response).to have_http_status(:ok)
+        parsed_response = JSON.parse(response.body)
+        expect(parsed_response['property']['id']).to eq(property1.id)
+      end
+    end
+
+    context 'when id is not valid' do
+      before do
+        get '/api/v1/properties/9999999',
+            headers: {
+              Authorization: "Bearer #{landlord.token}",
+            }
+      end
+
+      it 'returns a not found error' do
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+  end
+
+  describe 'PATCH /api/v1/properties/:id' do
+    let!(:property1) { FactoryBot.create(:property, landlord_id: landlord.id) }
+
+    context 'when the request is valid' do
+      let(:valid_attributes) do
+        {
+          address: 'new address',
+          city: 'new city',
+          province: 'new province',
+          zip_code: 'new zip code',
+        }
+      end
+
+      before do
+        patch "/api/v1/properties/#{property1.id}",
+              params: {
+                property: valid_attributes,
+              },
+              headers: {
+                Authorization: "Bearer #{landlord.token}",
+              }
+      end
+
+      it 'updates the property with valid attributes' do
+        expect(response).to have_http_status(:ok)
+        updated_property = Property.find(property1.id)
+        expect(updated_property.address).to eq(valid_attributes[:address])
+      end
+    end
+
+    context 'when the request is invalid' do
+      let(:invalid_attributes) { { landlord_id: nil } }
+
+      before do
+        patch "/api/v1/properties/#{property1.id}",
+              params: {
+                property: invalid_attributes,
+              },
+              headers: {
+                Authorization: "Bearer #{landlord.token}",
+              }
+      end
+
+      it 'does not update the property with invalid attributes' do
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+    end
+  end
+
+  describe 'DELETE /api/v1/properties/:id' do
+    let!(:property1) { FactoryBot.create(:property, landlord_id: landlord.id) }
+
+    context 'when request is valid' do
+      before do
+        delete "/api/v1/properties/#{property1.id}",
+               headers: {
+                 Authorization: "Bearer #{landlord.token}",
+               }
+      end
+
+      it 'deletes the property' do
+        expect(response).to have_http_status(:no_content)
+        expect { Property.find(property1.id) }.to raise_error(
+          ActiveRecord::RecordNotFound,
+        )
+      end
+    end
+  end
 end

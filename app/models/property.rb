@@ -19,4 +19,17 @@ class Property < ApplicationRecord
       return property, error_messages
     end
   end
+
+  # edit details
+
+  def self.edit_details(id, property_params)
+    property = find(id)
+
+    if property.update(property_params)
+      return property, nil
+    else
+      error_messages = property.errors.full_messages
+      return property, error_messages
+    end
+  end
 end
