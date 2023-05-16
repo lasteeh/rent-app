@@ -8,7 +8,8 @@ class Api::V1::PropertiesController < ApplicationController
       properties = Property.all
     end
 
-    render json: { properties: properties }, status: :ok
+    serialized_properties = PropertySerializer.serialize_properties(properties)
+    render json: { properties: serialized_properties }, status: :ok
   end
 
   def create
@@ -16,14 +17,16 @@ class Api::V1::PropertiesController < ApplicationController
     property, error_messages = Property.register(property_params)
 
     if error_messages.nil?
-      render json: { property: property }, status: :created
+      serialized_property = PropertySerializer.serialize_property(property)
+      render json: { property: serialized_property }, status: :created
     else
       render json: { errors: error_messages }, status: :unprocessable_entity
     end
   end
 
   def show
-    render json: { property: @property }, status: :ok
+    serialized_property = PropertySerializer.serialize_property(@property)
+    render json: { property: serialized_property }, status: :ok
   end
 
   def update
@@ -31,7 +34,8 @@ class Api::V1::PropertiesController < ApplicationController
       Property.edit_details(params[:id], property_params)
 
     if error_messages.nil?
-      render json: { property: property }, status: :ok
+      serialized_property = PropertySerializer.serialize_property(@property)
+      render json: { property: serialized_property }, status: :ok
     else
       render json: { errors: error_messages }, status: :unprocessable_entity
     end
