@@ -1,5 +1,6 @@
 class Api::V1::PropertiesController < ApplicationController
   before_action :set_property, only: %i[show update destroy]
+  before_action :owner_only, only: %i[update destroy]
 
   def index
     if @current_landlord
@@ -13,6 +14,11 @@ class Api::V1::PropertiesController < ApplicationController
   end
 
   def create
+    # landlord only action
+    if @current_landlord.nil? && !@current_renter.nil?
+      render json: { errors: ['Access denied'] }, status: :forbidden
+    end
+
     # signup
     property, error_messages = Property.register(property_params)
 
@@ -73,5 +79,11 @@ class Api::V1::PropertiesController < ApplicationController
         :units,
         :landlord_id,
       )
+  end
+
+  def owner_only
+    if @current_landlord.id != @property.landlord_id
+      render json: { errors: ['Access denied'] }, status: :forbidden
+    end
   end
 end
