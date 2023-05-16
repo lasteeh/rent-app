@@ -263,5 +263,20 @@ RSpec.describe Api::V1::PropertiesController, type: :request do
         )
       end
     end
+
+    context 'as not the landlord of the property' do
+      let!(:landlord2) { FactoryBot.create(:landlord) }
+
+      before do
+        delete "/api/v1/properties/#{property1.id}",
+               headers: {
+                 Authorization: "Bearer #{landlord2.token}",
+               }
+      end
+
+      it 'denies permission to edit property details' do
+        expect(response).to have_http_status(:forbidden)
+      end
+    end
   end
 end
