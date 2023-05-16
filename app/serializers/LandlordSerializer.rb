@@ -1,0 +1,2 @@
+class LandlordSerializer < BaseSerializer
+end

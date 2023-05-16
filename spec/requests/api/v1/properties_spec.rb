@@ -84,7 +84,9 @@ RSpec.describe Api::V1::PropertiesController, type: :request do
       it 'returns all properties owned by landlord' do
         expect(response).to have_http_status(:ok)
         parsed_response = JSON.parse(response.body)
-        expect(parsed_response.length).to eq(expected_properties.length)
+        expect(parsed_response['properties'].length).to eq(
+          expected_properties.length,
+        )
       end
     end
 
@@ -113,7 +115,9 @@ RSpec.describe Api::V1::PropertiesController, type: :request do
       it 'returns all properties' do
         expect(response).to have_http_status(:ok)
         parsed_response = JSON.parse(response.body)
-        expect(parsed_response.length).to eq(expected_properties.length)
+        expect(parsed_response['properties'].length).to eq(
+          expected_properties.length,
+        )
       end
     end
   end

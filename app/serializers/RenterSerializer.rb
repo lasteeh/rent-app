@@ -1,0 +1,2 @@
+class RenterSerializer < BaseSerializer
+end

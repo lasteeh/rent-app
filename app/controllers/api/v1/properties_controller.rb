@@ -6,7 +6,7 @@ class Api::V1::PropertiesController < ApplicationController
       properties = Property.all
     end
 
-    render json: properties, status: :ok
+    render json: { properties: properties }, status: :ok
   end
 
   def create
@@ -14,22 +14,7 @@ class Api::V1::PropertiesController < ApplicationController
     @property, @error_messages = Property.register(property_params)
 
     if @error_messages.nil?
-      render json: {
-               property: {
-                 name: @property.name,
-                 description: @property.description,
-                 id: @property.id,
-                 address: @property.address,
-                 city: @property.city,
-                 province: @property.province,
-                 zip_code: @property.zip_code,
-                 units: @property.units,
-               },
-               image: {
-                 url: @property.image_url,
-               },
-             },
-             status: :created
+      render json: { property: @property }, status: :created
     else
       render json: { errors: @error_messages }, status: :unprocessable_entity
     end

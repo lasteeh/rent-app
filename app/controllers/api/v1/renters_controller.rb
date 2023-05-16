@@ -9,11 +9,7 @@ class Api::V1::RentersController < ApplicationController
 
     if @error_messages.nil?
       render json: {
-               renter: {
-                 id: @renter.id,
-                 email: @renter.email,
-                 authentication_token: @renter.token,
-               },
+               renter: RenterSerializer.serialize_user(@renter),
              },
              status: :created
     else
