@@ -58,6 +58,22 @@ RSpec.describe Api::V1::PropertiesController, type: :request do
         expect(Property.count).to eq(1)
       end
     end
+
+    context 'as renter' do
+      before do
+        post '/api/v1/properties',
+             params: {
+               property: valid_attributes,
+             },
+             headers: {
+               Authorization: "Bearer #{renter.token}",
+             }
+      end
+
+      it 'denies permission to create' do
+        expect(response).to have_http_status(:forbidden)
+      end
+    end
   end
 
   describe 'GET /api/v1/properties/' do
@@ -199,6 +215,32 @@ RSpec.describe Api::V1::PropertiesController, type: :request do
 
       it 'does not update the property with invalid attributes' do
         expect(response).to have_http_status(:unprocessable_entity)
+      end
+    end
+
+    context 'as not the landlord of the property' do
+      let!(:landlord2) { FactoryBot.create(:landlord) }
+      let(:valid_attributes) do
+        {
+          address: 'new address',
+          city: 'new city',
+          province: 'new province',
+          zip_code: 'new zip code',
+        }
+      end
+
+      before do
+        patch "/api/v1/properties/#{property1.id}",
+              params: {
+                property: valid_attributes,
+              },
+              headers: {
+                Authorization: "Bearer #{landlord2.token}",
+              }
+      end
+
+      it 'denies permission to edit property details' do
+        expect(response).to have_http_status(:forbidden)
       end
     end
   end

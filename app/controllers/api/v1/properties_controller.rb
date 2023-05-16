@@ -15,8 +15,9 @@ class Api::V1::PropertiesController < ApplicationController
 
   def create
     # landlord only action
+
     if @current_landlord.nil? && !@current_renter.nil?
-      render json: { errors: ['Access denied'] }, status: :forbidden
+      return render json: { errors: ['Access denied'] }, status: :forbidden
     end
 
     # signup
