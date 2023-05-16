@@ -1,2 +1,2 @@
-class RenterSerializer < BaseSerializer
+class RenterSerializer < UserSerializer
 end

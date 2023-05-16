@@ -1,4 +1,4 @@
-class BaseSerializer
+class UserSerializer
   def self.serialize_user(user)
     {
       id: user.id,
