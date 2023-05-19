@@ -22,7 +22,8 @@ Rails
           post '/renter', to: 'authentication#renter_create'
         end
 
-        resources :properties
+        resources :properties, only: %i[index create show update destroy]
+        resources :rentals, only: %i[index create show update destroy]
       end
     end
   end

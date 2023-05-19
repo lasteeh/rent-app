@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_15_050301) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_18_054724) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -41,6 +41,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_15_050301) do
     t.index ["landlord_id"], name: "index_properties_on_landlord_id"
   end
 
+  create_table "rentals", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.date "start_date", null: false
+    t.integer "duration_months", default: 1, null: false
+    t.uuid "renter_id", null: false
+    t.bigint "property_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["property_id"], name: "index_rentals_on_property_id"
+    t.index ["renter_id"], name: "index_rentals_on_renter_id"
+  end
+
   create_table "renters", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "first_name", null: false
     t.string "last_name", null: false
@@ -54,4 +65,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_15_050301) do
   end
 
   add_foreign_key "properties", "landlords"
+  add_foreign_key "rentals", "properties"
+  add_foreign_key "rentals", "renters"
 end
