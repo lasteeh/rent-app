@@ -3,10 +3,10 @@ require 'rails_helper'
 RSpec.describe Api::V1::AuthenticationController, type: :request do
   let!(:landlord) { FactoryBot.create(:landlord) }
   let(:valid_signin_params) do
-    { email: landlord.email, password: landlord.password }
+    { authentication: { email: landlord.email, password: landlord.password } }
   end
   let(:invalid_signin_params) do
-    { email: landlord.email, password: 'wrong_password' }
+    { authentication: { email: landlord.email, password: 'wrong_password' } }
   end
 
   describe 'POST /api/v1/auth/landlord' do
