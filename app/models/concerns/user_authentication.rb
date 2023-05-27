@@ -6,7 +6,7 @@ module UserAuthentication
 
     def self.signin(signin_params)
       user = find_by(email: signin_params[:email])
-      if user && signin_params[:password] == BCrypt::Password.new(user.password)
+      if user && BCrypt::Password.new(user.password) == signin_params[:password]
         return user, nil
       else
         error_messages = ['Invalid email or password']
