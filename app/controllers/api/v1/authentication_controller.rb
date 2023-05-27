@@ -1,5 +1,6 @@
 class Api::V1::AuthenticationController < ApplicationController
-  skip_before_action :authenticate_request, only: :landlord_create
+  skip_before_action :authenticate_request,
+                     only: %i[landlord_create renter_create]
 
   def landlord_create
     # signin
@@ -8,6 +9,18 @@ class Api::V1::AuthenticationController < ApplicationController
     if @error_messages.nil?
       serialized_token = TokenSerializer.serialize_user(@landlord)
       render json: { landlord: serialized_token }, status: :ok
+    else
+      render json: { errors: @error_messages }, status: :unauthorized
+    end
+  end
+
+  def renter_create
+    # signin
+    @renter, @error_messages = Renter.signin(signin_params)
+
+    if @error_messages.nil?
+      serialized_token = TokenSerializer.serialize_user(@renter)
+      render json: { renter: serialized_token }, status: :ok
     else
       render json: { errors: @error_messages }, status: :unauthorized
     end
