@@ -89,12 +89,25 @@ RSpec.describe Api::V1::PropertiesController, type: :request do
       let!(:property3) do
         FactoryBot.create(:property, landlord_id: landlord_2.id)
       end
-      let(:expected_properties) { landlord.properties }
+      let(:expected_properties) { landlord_2.properties }
 
       before do
+        post '/api/v1/auth/landlord',
+             params: {
+               authentication: {
+                 email: landlord_2.email,
+                 password: 'a1b2c3DDDD!',
+               },
+             }
+
+        parsed_response_before_action = JSON.parse(response.body)
+        auth_token = parsed_response_before_action['landlord']['token']
+
+        landlord_2.reload
+
         get '/api/v1/properties',
             headers: {
-              Authorization: "Bearer #{landlord.token}", # authenticate request to get past authentice_request method
+              Authorization: "Bearer #{auth_token}", # authenticate request to get past authentice_request method
             }
       end
       it 'returns all properties owned by landlord' do
