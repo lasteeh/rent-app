@@ -103,7 +103,7 @@ RSpec.describe Api::V1::PropertiesController, type: :request do
         parsed_response_before_action = JSON.parse(response.body)
         auth_token = parsed_response_before_action['landlord']['token']
 
-        landlord_2.reload
+        # landlord_2.reload
 
         get '/api/v1/properties',
             headers: {

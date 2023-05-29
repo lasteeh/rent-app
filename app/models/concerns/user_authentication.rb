@@ -9,6 +9,7 @@ module UserAuthentication
       if user && BCrypt::Password.new(user.password) == signin_params[:password]
         user.generate_token
         user.save
+        user.reload
 
         return user, nil
       else
