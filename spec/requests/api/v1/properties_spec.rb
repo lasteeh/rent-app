@@ -92,6 +92,9 @@ RSpec.describe Api::V1::PropertiesController, type: :request do
       let(:expected_properties) { landlord_2.properties }
 
       before do
+        p "#{landlord_2.token} token before signin"
+        p 'SIGNING INNNNNN'
+
         post '/api/v1/auth/landlord',
              params: {
                authentication: {
@@ -101,18 +104,26 @@ RSpec.describe Api::V1::PropertiesController, type: :request do
              }
 
         parsed_response_before_action = JSON.parse(response.body)
+        p "#{landlord_2.token} token after signin"
+
         auth_token = parsed_response_before_action['landlord']['token']
 
-        # landlord_2.reload
+        p "#{auth_token} token returned from post request"
+
+        p "#{landlord_2.token} token after signin after getting token from post request"
 
         get '/api/v1/properties',
             headers: {
               Authorization: "Bearer #{auth_token}", # authenticate request to get past authentice_request method
             }
+
+        p "#{auth_token} token passed in headers"
       end
       it 'returns all properties owned by landlord' do
+        p "#{response} http response"
         expect(response).to have_http_status(:ok)
         parsed_response = JSON.parse(response.body)
+        p parsed_response
         expect(parsed_response['properties'].length).to eq(
           expected_properties.length,
         )
