@@ -78,6 +78,7 @@ class Api::V1::PropertiesController < ApplicationController
         :province,
         :zip_code,
         :units,
+        :rent_per_month,
         :landlord_id,
       )
   end

@@ -7,6 +7,7 @@ FactoryBot.define do
     city { Faker::Address.city }
     province { Faker::Address.state }
     zip_code { Faker::Address.zip_code }
+    rent_per_month { 2000 }
     units { Faker::Number.within(range: 1..10) }
     landlord
   end
