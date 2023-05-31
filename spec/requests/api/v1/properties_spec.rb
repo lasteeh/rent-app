@@ -12,6 +12,7 @@ RSpec.describe Api::V1::PropertiesController, type: :request do
         city: property.city,
         province: property.province,
         zip_code: property.zip_code,
+        rent_per_month: property.rent_per_month,
         landlord_id: property.landlord_id,
       }
     end

@@ -8,6 +8,7 @@ class Property < ApplicationRecord
   validates :province, presence: true
   validates :zip_code, presence: true
   validates :landlord_id, presence: true
+  validates :rent_per_month, presence: true
 
   # registration
   def self.register(property_params)

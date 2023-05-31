@@ -9,6 +9,7 @@ class PropertySerializer
       province: property.province,
       zip_code: property.zip_code,
       units: property.units,
+      rent_per_month: property.rent_per_month,
       landlord_id: property.landlord_id,
       image_url: property.image_url,
     }
