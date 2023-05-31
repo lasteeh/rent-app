@@ -6,6 +6,7 @@ class RentalSerializer
       property_id: rental.property_id,
       start_date: rental.start_date,
       duration_months: rental.duration_months,
+      rent_per_month: rental.rent_per_month,
     }
   end
 
