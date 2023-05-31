@@ -10,6 +10,6 @@ class RentalSerializer
   end
 
   def self.serialize_rentals(rentals)
-    rentals.map { |rental| serialize_rental(property) }
+    rentals.map { |rental| serialize_rental(rental) }
   end
 end
